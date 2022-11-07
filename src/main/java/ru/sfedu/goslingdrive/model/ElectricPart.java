@@ -33,7 +33,7 @@ public class ElectricPart extends AutoPart {
 
     @Override
     public String toString() {
-        return "RunningPart{" +
+        return "ElectricPart{" +
                 "id=" +  super.getId() +
                 ", name='" + super.getName() + '\'' +
                 ", price=" + super.getPrice() +
