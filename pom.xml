@@ -8,7 +8,6 @@
     <artifactId>gosling-drive</artifactId>
     <version>1.0</version>
 
-
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
@@ -103,6 +102,5 @@
         </dependency>
 
     </dependencies>
-
     
 </project>
