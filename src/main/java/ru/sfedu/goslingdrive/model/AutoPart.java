@@ -13,7 +13,7 @@ public abstract  class AutoPart implements Serializable {
 
     @Attribute
     @CsvBindByPosition(position = 1)
-    private String name;
+    private String name = "";
 
     @Attribute
     @CsvBindByPosition(position = 2)
@@ -21,7 +21,7 @@ public abstract  class AutoPart implements Serializable {
 
     @Attribute
     @CsvBindByPosition(position = 3)
-    private String vinPart;
+    private String vinPart = "";
 
     @Attribute
     @CsvBindByPosition(position = 4)

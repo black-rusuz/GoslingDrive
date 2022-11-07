@@ -8,7 +8,7 @@ import java.util.Objects;
 public class BodyPart extends AutoPart {
     @Attribute
     @CsvBindByPosition(position = 5)
-    private String color;
+    private String color = "";
 
     public BodyPart() {
     }

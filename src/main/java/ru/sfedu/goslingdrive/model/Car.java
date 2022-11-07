@@ -19,11 +19,11 @@ public class Car {
 
     @Attribute
     @CsvBindByPosition(position = 1)
-    private String brand;
+    private String brand = "";
 
     @Attribute
     @CsvBindByPosition(position = 2)
-    private String model;
+    private String model = "";
 
     @Attribute
     @CsvBindByPosition(position = 3)
@@ -31,7 +31,7 @@ public class Car {
 
     @Attribute
     @CsvBindByPosition(position = 4)
-    private String vin;
+    private String vin = "";
 
     @ElementListUnion({
             @ElementList(entry = "AutoPart", inline = true, required = false, type = AutoPart.class),
@@ -40,7 +40,7 @@ public class Car {
             @ElementList(entry = "RunningPart", inline = true, required = false, type = RunningPart.class),
     })
     @CsvCustomBindByPosition(position = 5, converter = PartsConverter.class)
-    private List<AutoPart> parts;
+    private List<AutoPart> parts = List.of();
 
     public Car() {
     }
