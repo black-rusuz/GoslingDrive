@@ -42,6 +42,10 @@ public class Car {
     @CsvCustomBindByPosition(position = 5, converter = PartsConverter.class)
     private List<AutoPart> parts = List.of();
 
+    @Attribute
+    @CsvBindByPosition(position = 6)
+    private int price;
+
     public Car() {
     }
 

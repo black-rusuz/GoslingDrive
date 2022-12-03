@@ -10,12 +10,17 @@ public class BodyPart extends AutoPart {
     @CsvBindByPosition(position = 5)
     private String color = "";
 
+    @Attribute
+    @CsvBindByPosition(position = 6)
+    private String side = "";
+
     public BodyPart() {
     }
 
-    public BodyPart(long id, String name, int price, String vinPart, int warranty, String color) {
+    public BodyPart(long id, String name, int price, String vinPart, int warranty, String color, String side) {
         super(id, name, price, vinPart, warranty);
         setColor(color);
+        setSide(side);
     }
 
     @Override
@@ -23,23 +28,25 @@ public class BodyPart extends AutoPart {
         if (this == o) return true;
         if (!(o instanceof BodyPart bodyPart)) return false;
         if (!super.equals(o)) return false;
-        return Objects.equals(getColor(), bodyPart.getColor());
+        return Objects.equals(getColor(), bodyPart.getColor())
+                && Objects.equals(getSide(), bodyPart.side);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getColor());
+        return Objects.hash(super.hashCode(), getColor(), getSide());
     }
 
     @Override
     public String toString() {
         return "BodyPart{" +
-                "id=" +  super.getId() +
+                "id=" + super.getId() +
                 ", name='" + super.getName() + '\'' +
                 ", price=" + super.getPrice() +
                 ", vinPart='" + super.getVinPart() + '\'' +
                 ", warranty=" + super.getWarranty() +
-                ", color='" + color + '\'' +
+                ", color='" + getColor() + '\'' +
+                ", side='" + getSide() + '\'' +
                 '}';
     }
 
@@ -49,5 +56,13 @@ public class BodyPart extends AutoPart {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getSide() {
+        return side;
+    }
+
+    public void setSide(String side) {
+        this.side = side;
     }
 }
