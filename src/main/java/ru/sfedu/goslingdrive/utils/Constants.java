@@ -42,6 +42,7 @@ public class Constants {
 
     // Info
     public static final String NOT_FOUND = "%s ID %d not found";
+    public static final String TOTAL_PRICE = "Total price: ";
 
     public static final String FEW_ARGS = "Few arguments";
     public static final String WRONG_DP = "Wrong type of DataProvider";
