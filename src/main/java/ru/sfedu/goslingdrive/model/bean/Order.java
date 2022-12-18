@@ -6,8 +6,8 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.ElementListUnion;
-import ru.sfedu.goslingdrive.utils.PartsConverter;
-import ru.sfedu.goslingdrive.utils.UserConverter;
+import ru.sfedu.goslingdrive.utils.converters.PartsConverter;
+import ru.sfedu.goslingdrive.utils.converters.UserConverter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(long id, User user, List<AutoPart> parts, int price) {
+    public Order(long id, User user, List<AutoPart> parts, double price) {
         setId(id);
         setUser(user);
         setParts(parts);

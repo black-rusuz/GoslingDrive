@@ -1,4 +1,4 @@
-package ru.sfedu.goslingdrive.utils;
+package ru.sfedu.goslingdrive.utils.converters;
 
 import com.opencsv.bean.AbstractBeanField;
 import ru.sfedu.goslingdrive.model.bean.AutoPart;

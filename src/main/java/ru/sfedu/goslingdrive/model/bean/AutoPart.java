@@ -17,7 +17,7 @@ public abstract class AutoPart implements Serializable {
 
     @Attribute
     @CsvBindByPosition(position = 2)
-    private int price;
+    private double price;
 
     @Attribute
     @CsvBindByPosition(position = 3)
@@ -30,7 +30,7 @@ public abstract class AutoPart implements Serializable {
     public AutoPart() {
     }
 
-    public AutoPart(long id, String name, int price, String vinPart, int warranty) {
+    public AutoPart(long id, String name, double price, String vinPart, int warranty) {
         setId(id);
         setName(name);
         setPrice(price);
@@ -81,11 +81,11 @@ public abstract class AutoPart implements Serializable {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
