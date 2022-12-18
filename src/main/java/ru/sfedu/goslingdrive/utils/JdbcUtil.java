@@ -1,7 +1,9 @@
 package ru.sfedu.goslingdrive.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.sfedu.goslingdrive.model.bean.User;
+import ru.sfedu.goslingdrive.model.bean.*;
+import ru.sfedu.goslingdrive.utils.converters.PartsConverter;
+import ru.sfedu.goslingdrive.utils.converters.UserConverter;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,6 +44,7 @@ public class JdbcUtil {
     private static final String COLUMN_TYPE_STRING = " VARCHAR";
     private static final String COLUMN_TYPE_INT = " INTEGER";
     private static final String COLUMN_TYPE_DOUBLE = " NUMERIC";
+    private static final String COLUMN_TYPE_BOOLEAN = " BIT";
 
     public static <T> String createTable(T bean) {
         LinkedHashMap<String, Object> map = getMap(bean);
@@ -61,6 +64,8 @@ public class JdbcUtil {
             return getColumnName(entry.getKey()) + COLUMN_TYPE_INT;
         else if (entry.getValue().getClass() == Double.class)
             return getColumnName(entry.getKey()) + COLUMN_TYPE_DOUBLE;
+        else if (entry.getValue().getClass() == Boolean.class)
+            return getColumnName(entry.getKey()) + COLUMN_TYPE_BOOLEAN;
         else
             return getColumnName(entry.getKey()) + COLUMN_TYPE_STRING;
     }
@@ -147,7 +152,70 @@ public class JdbcUtil {
 
     public static <T> List<T> readData(Class<T> type, ResultSet rs) throws SQLException {
         List list = new ArrayList<>();
+        if (type == BodyPart.class) list = readBodyPart(rs);
+        if (type == ElectricPart.class) list = readElectricPart(rs);
+        if (type == Order.class) list = readOrder(rs);
+        if (type == RunningPart.class) list = readRunningPart(rs);
         if (type == User.class) list = readUser(rs);
+        return list;
+    }
+
+    private static List<BodyPart> readBodyPart(ResultSet rs) throws SQLException {
+        List<BodyPart> list = new ArrayList<>();
+        while (rs.next()) {
+            BodyPart bean = new BodyPart();
+            bean.setId(rs.getLong(1));
+            bean.setName(rs.getString(2));
+            bean.setPrice(rs.getDouble(3));
+            bean.setVinPart(rs.getString(4));
+            bean.setWarranty(rs.getInt(5));
+            bean.setColor(rs.getString(6));
+            bean.setSide(rs.getString(7));
+            list.add(bean);
+        }
+        return list;
+    }
+
+    private static List<ElectricPart> readElectricPart(ResultSet rs) throws SQLException {
+        List<ElectricPart> list = new ArrayList<>();
+        while (rs.next()) {
+            ElectricPart bean = new ElectricPart();
+            bean.setId(rs.getLong(1));
+            bean.setName(rs.getString(2));
+            bean.setPrice(rs.getDouble(3));
+            bean.setVinPart(rs.getString(4));
+            bean.setWarranty(rs.getInt(5));
+            bean.setWattage(rs.getDouble(6));
+            list.add(bean);
+        }
+        return list;
+    }
+
+    private static List<Order> readOrder(ResultSet rs) throws SQLException {
+        List<Order> list = new ArrayList<>();
+        while (rs.next()) {
+            Order bean = new Order();
+            bean.setId(rs.getLong(1));
+            bean.setUser(UserConverter.fromString(rs.getString(2)));
+            bean.setParts(PartsConverter.fromString(rs.getString(3)));
+            bean.setPrice(rs.getLong(4));
+            list.add(bean);
+        }
+        return list;
+    }
+
+    private static List<RunningPart> readRunningPart(ResultSet rs) throws SQLException {
+        List<RunningPart> list = new ArrayList<>();
+        while (rs.next()) {
+            RunningPart bean = new RunningPart();
+            bean.setId(rs.getLong(1));
+            bean.setName(rs.getString(2));
+            bean.setPrice(rs.getDouble(3));
+            bean.setVinPart(rs.getString(4));
+            bean.setWarranty(rs.getInt(5));
+            bean.setIsCustom(rs.getBoolean(6));
+            list.add(bean);
+        }
         return list;
     }
 
