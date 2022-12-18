@@ -1,12 +1,26 @@
 package ru.sfedu.goslingdrive.model.bean;
 
+import com.opencsv.bean.CsvBindByPosition;
+import org.simpleframework.xml.Attribute;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 public class User implements Serializable {
+    @Attribute
+    @CsvBindByPosition(position = 0)
     private long id;
+
+    @Attribute
+    @CsvBindByPosition(position = 1)
     private String fullName = "";
+
+    @Attribute
+    @CsvBindByPosition(position = 2)
     private String car = "";
+
+    @Attribute
+    @CsvBindByPosition(position = 3)
     private String address = "";
 
     public User() {

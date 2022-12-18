@@ -14,13 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Element
 public class Order implements Serializable {
     @Attribute
     @CsvBindByPosition(position = 0)
     private long id;
 
-    @Attribute
+    @Element
     @CsvCustomBindByPosition(position = 1, converter = UserConverter.class)
     private User user = new User();
 
