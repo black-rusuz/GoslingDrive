@@ -1,4 +1,4 @@
-package ru.sfedu.goslingdrive.model;
+package ru.sfedu.goslingdrive.model.bean;
 
 import com.opencsv.bean.CsvBindByPosition;
 import org.simpleframework.xml.Attribute;
@@ -34,7 +34,7 @@ public class RunningPart extends AutoPart {
     @Override
     public String toString() {
         return "RunningPart{" +
-                "id=" +  super.getId() +
+                "id=" + super.getId() +
                 ", name='" + super.getName() + '\'' +
                 ", price=" + super.getPrice() +
                 ", vinPart='" + super.getVinPart() + '\'' +

@@ -1,4 +1,4 @@
-package ru.sfedu.goslingdrive.model;
+package ru.sfedu.goslingdrive.model.bean;
 
 import com.opencsv.bean.CsvBindByPosition;
 import org.simpleframework.xml.Attribute;

@@ -1,4 +1,4 @@
-package ru.sfedu.goslingdrive.model;
+package ru.sfedu.goslingdrive.model.bean;
 
 import com.opencsv.bean.CsvBindByPosition;
 import org.simpleframework.xml.Attribute;
@@ -9,7 +9,7 @@ public class ElectricPart extends AutoPart {
     @Attribute
     @CsvBindByPosition(position = 5)
     private double wattage;
-    
+
     public ElectricPart() {
     }
 
@@ -34,7 +34,7 @@ public class ElectricPart extends AutoPart {
     @Override
     public String toString() {
         return "ElectricPart{" +
-                "id=" +  super.getId() +
+                "id=" + super.getId() +
                 ", name='" + super.getName() + '\'' +
                 ", price=" + super.getPrice() +
                 ", vinPart='" + super.getVinPart() + '\'' +
