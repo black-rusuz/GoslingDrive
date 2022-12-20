@@ -2,6 +2,7 @@ package ru.sfedu.goslingdrive.api;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.codehaus.plexus.util.CollectionUtils;
 import ru.sfedu.goslingdrive.model.HistoryContent;
 import ru.sfedu.goslingdrive.model.bean.*;
 import ru.sfedu.goslingdrive.utils.ConfigurationUtil;
@@ -11,8 +12,8 @@ import ru.sfedu.goslingdrive.utils.ReflectUtil;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("UnusedReturnValue")
 public abstract class AbstractDataProvider {
@@ -30,6 +31,7 @@ public abstract class AbstractDataProvider {
         }
     }
 
+
     // ABSTRACT GENERICS
 
     protected abstract <T> List<T> getAll(Class<T> type);
@@ -41,6 +43,7 @@ public abstract class AbstractDataProvider {
     protected abstract <T> boolean delete(Class<T> type, long id);
 
     protected abstract <T> boolean update(Class<T> type, T bean);
+
 
     // SERVICE
 
@@ -64,7 +67,107 @@ public abstract class AbstractDataProvider {
         return String.format(Constants.NOT_FOUND, type.getSimpleName(), id);
     }
 
+
     // USE CASES
+
+    private List<AutoPart> getAllParts() {
+        List<AutoPart> parts = new ArrayList<>();
+        parts.addAll(getBodyParts());
+        parts.addAll(getElectricParts());
+        parts.addAll(getRunningParts());
+        return parts;
+    }
+
+    public List<AutoPart> searchParts(String name, String vin) {
+        List<AutoPart> parts = searchByName(name);
+        if (vin != null)
+            parts = CollectionUtils.intersection(parts, searchByVin(vin)).stream().toList();
+        log.info(Constants.FOUND_PARTS + parts.stream()
+                .map(Object::toString)
+                .collect(Collectors.joining("\n")));
+        return parts;
+    }
+
+    public List<AutoPart> searchByName(String name) {
+        return getAllParts().stream()
+                .filter((e) -> e.getName().toLowerCase().contains(name.toLowerCase()))
+                .toList();
+    }
+
+    public List<AutoPart> searchByVin(String vin) {
+        return getAllParts().stream()
+                .filter((e) -> vin.toLowerCase().contains(e.getVinPart().toLowerCase()))
+                .toList();
+    }
+
+    private Order getLastOrder() {
+        List<Order> orders = getOrders();
+        Order order = new Order();
+        order.setId(System.currentTimeMillis());
+        if (orders.size() != 0) order = orders.get(orders.size() - 1);
+        return order;
+    }
+
+    private Optional<AutoPart> getPart(long id) {
+        AutoPart part = getBodyPart(id);
+        if (part.getId() != 0) return Optional.of(part);
+        part = getElectricPart(id);
+        if (part.getId() != 0) return Optional.of(part);
+        part = getRunningPart(id);
+        if (part.getId() != 0) return Optional.of(part);
+        log.info(getNotFoundMessage(AutoPart.class, id));
+        return Optional.empty();
+    }
+
+    public Optional<Order> modifyOrder(String action, long partId) {
+        switch (action.toUpperCase()) {
+            case Constants.ADD -> addPart(partId);
+            case Constants.REMOVE -> removePart(partId);
+        }
+        Order order = getLastOrder();
+        order.setPrice(calculateTotalPrice(order.getId()));
+        log.info(Constants.MODIFIED_ORDER + order);
+        return Optional.of(order);
+    }
+
+    public Optional<Order> addPart(long partId) {
+        Order order = getLastOrder();
+        List<AutoPart> parts = new ArrayList<>(order.getParts());
+        Optional<AutoPart> part = getPart(partId);
+
+        if (part.isPresent()) {
+            parts.add(part.get());
+            order.setParts(parts);
+            updateOrder(order);
+            log.info(Constants.ADDED_PART + part.get().getName());
+        }
+        return Optional.of(order);
+    }
+
+    public Optional<Order> removePart(long partId) {
+        Order order = getLastOrder();
+        List<AutoPart> parts = new ArrayList<>(order.getParts());
+        Optional<AutoPart> part = getPart(partId);
+
+        if (part.isPresent()) {
+            if (parts.contains(part.get())) {
+                parts.remove(part.get());
+                order.setParts(parts);
+                updateOrder(order);
+                log.info(Constants.REMOVED_PART + part.get().getName());
+            } else {
+                log.info(Constants.PART_NOT_INSTALLED + part.get().getName());
+            }
+        }
+        return Optional.of(order);
+    }
+
+    public double calculateTotalPrice(long orderId) {
+        List<AutoPart> parts = getOrder(orderId).getParts();
+        double orderPrice = parts.stream().mapToDouble(AutoPart::getPrice).sum();
+        log.info(Constants.TOTAL_PRICE + orderPrice);
+        return orderPrice;
+    }
 
 
     // CRUD

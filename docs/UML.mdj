@@ -3114,7 +3114,7 @@
 									"font": "JetBrains Mono;13;0",
 									"left": 148,
 									"top": 89,
-									"width": 56,
+									"width": 56.7999267578125,
 									"height": 38,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGEUsXPZF3AM4E="
@@ -3711,7 +3711,7 @@
 											"top": 168,
 											"width": 46,
 											"height": 26,
-											"text": "modify car",
+											"text": "modify order",
 											"wordWrap": true
 										},
 										{
@@ -3748,7 +3748,7 @@
 									"font": "JetBrains Mono;13;0",
 									"left": 148,
 									"top": 161,
-									"width": 56,
+									"width": 56.7999267578125,
 									"height": 38,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGEUsjVl18NU3I="
@@ -6263,7 +6263,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGEUsV2/11Y+o8="
 					},
-					"name": "modify car",
+					"name": "modify order",
 					"ownedElements": [
 						{
 							"_type": "UMLInclude",

@@ -42,6 +42,11 @@ public class Constants {
 
     // Info
     public static final String NOT_FOUND = "%s ID %d not found";
+    public static final String FOUND_PARTS = "Found parts:\n";
+    public static final String MODIFIED_ORDER = "Modified order:\n";
+    public static final String ADDED_PART = "Added part: ";
+    public static final String REMOVED_PART = "Removed part: ";
+    public static final String PART_NOT_INSTALLED = "Part not installed: ";
     public static final String TOTAL_PRICE = "Total price: ";
 
     public static final String FEW_ARGS = "Few arguments";
