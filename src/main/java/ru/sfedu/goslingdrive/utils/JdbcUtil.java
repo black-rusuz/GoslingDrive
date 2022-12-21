@@ -43,7 +43,7 @@ public class JdbcUtil {
     private static final String COLUMN_TYPE_LONG = " LONG";
     private static final String COLUMN_TYPE_STRING = " VARCHAR";
     private static final String COLUMN_TYPE_INT = " INTEGER";
-    private static final String COLUMN_TYPE_DOUBLE = " NUMERIC";
+    private static final String COLUMN_TYPE_DOUBLE = " DOUBLE";
     private static final String COLUMN_TYPE_BOOLEAN = " BIT";
 
     public static <T> String createTable(T bean) {

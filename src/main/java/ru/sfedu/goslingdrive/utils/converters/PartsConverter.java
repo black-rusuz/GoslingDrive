@@ -61,7 +61,7 @@ public class PartsConverter extends AbstractBeanField<List<AutoPart>, String> {
     }
 
     private static String beanToString(AutoPart autoPart) {
-        List<Object> params = new ArrayList<>(List.of(autoPart.getId(), autoPart.getName(), autoPart.getPrice()));
+        List<Object> params = new ArrayList<>(List.of(autoPart.getId(), autoPart.getName(), autoPart.getPrice(), autoPart.getVinPart(), autoPart.getWarranty()));
 
         if (autoPart instanceof BodyPart bodyPart) {
             params.add(bodyPart.getColor());
