@@ -12,7 +12,10 @@ import ru.sfedu.goslingdrive.utils.ReflectUtil;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("UnusedReturnValue")
@@ -72,6 +75,7 @@ public abstract class AbstractDataProvider {
 
     /**
      * Получить все детали
+     *
      * @return Список всех деталей
      */
     private List<AutoPart> getAllParts() {
@@ -84,8 +88,9 @@ public abstract class AbstractDataProvider {
 
     /**
      * Поиск деталей по названию и ВИН-номеру
+     *
      * @param name Название детали
-     * @param vin ВИН-номер
+     * @param vin  ВИН-номер
      * @return Список соответствующих деталей
      */
     public List<AutoPart> searchParts(String name, String vin) {
@@ -100,6 +105,7 @@ public abstract class AbstractDataProvider {
 
     /**
      * Поиск деталей по названию
+     *
      * @param name Название детали
      * @return Список соответствующих деталей
      */
@@ -111,6 +117,7 @@ public abstract class AbstractDataProvider {
 
     /**
      * Поиск деталей по ВИН-номеру
+     *
      * @param vin ВИН-Номер
      * @return Список соответствующих деталей
      */
@@ -122,6 +129,7 @@ public abstract class AbstractDataProvider {
 
     /**
      * Получить последний заказ
+     *
      * @return Последний заказ
      */
     private Order getLastOrder() {
@@ -134,6 +142,7 @@ public abstract class AbstractDataProvider {
 
     /**
      * Получить деталь
+     *
      * @param id ID детали
      * @return Деталь
      */
@@ -149,7 +158,8 @@ public abstract class AbstractDataProvider {
     }
 
     /**
-     * Изменить заказ
+     * Изменить последний сохранённый заказ
+     *
      * @param action Действие с деталью
      * @param partId ID детали
      * @return Обновлённый заказ
@@ -166,7 +176,8 @@ public abstract class AbstractDataProvider {
     }
 
     /**
-     * Добавить деталь
+     * Добавить деталь в последний сохранённый заказ
+     *
      * @param partId ID детали
      * @return Обновлённый заказ
      */
@@ -185,7 +196,8 @@ public abstract class AbstractDataProvider {
     }
 
     /**
-     * Удалить деталь
+     * Удалить деталь из последнего сохранённого заказа
+     *
      * @param partId ID детали
      * @return Обновлённый заказ
      */
@@ -209,6 +221,7 @@ public abstract class AbstractDataProvider {
 
     /**
      * Подсчитать итоговую цену
+     *
      * @param orderId ID заказа
      * @return Цена
      */

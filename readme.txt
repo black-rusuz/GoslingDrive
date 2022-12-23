@@ -2,10 +2,10 @@
 1. searchParts(String name, String vin) - Поиск деталей по названию и ВИН-номеру
 2. searchByName(String name) - Поиск деталей по названию
 3. searchByVin(String vin) - Поиск деталей по ВИН-номеру
-4. modifyOrder(String action, long partId) - Изменить заказ
-5. addPart(long partId) - Добавить деталь
-6. removePart(long partId) - Удалить деталь
-7. calculateTotalPrice(long orderId) - Подсчитать итоговую цену
+4. modifyOrder(String action, long partId) - Изменить последний сохранённый заказ
+5. addPart(long partId) - Добавить деталь в последний заказ
+6. removePart(long partId) - Удалить деталь из последнего заказа
+7. calculateTotalPrice(long orderId) - Подсчитать итоговую цену заказа
 
 
 Параметры:
