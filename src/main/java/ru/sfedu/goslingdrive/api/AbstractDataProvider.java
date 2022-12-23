@@ -70,6 +70,10 @@ public abstract class AbstractDataProvider {
 
     // USE CASES
 
+    /**
+     * Получить все детали
+     * @return Список всех деталей
+     */
     private List<AutoPart> getAllParts() {
         List<AutoPart> parts = new ArrayList<>();
         parts.addAll(getBodyParts());
@@ -78,6 +82,12 @@ public abstract class AbstractDataProvider {
         return parts;
     }
 
+    /**
+     * Поиск деталей по названию и ВИН-номеру
+     * @param name Название детали
+     * @param vin ВИН-номер
+     * @return Список соответствующих деталей
+     */
     public List<AutoPart> searchParts(String name, String vin) {
         List<AutoPart> parts = searchByName(name);
         if (vin != null)
@@ -88,18 +98,32 @@ public abstract class AbstractDataProvider {
         return parts;
     }
 
+    /**
+     * Поиск деталей по названию
+     * @param name Название детали
+     * @return Список соответствующих деталей
+     */
     public List<AutoPart> searchByName(String name) {
         return getAllParts().stream()
                 .filter((e) -> e.getName().toLowerCase().contains(name.toLowerCase()))
                 .toList();
     }
 
+    /**
+     * Поиск деталей по ВИН-номеру
+     * @param vin ВИН-Номер
+     * @return Список соответствующих деталей
+     */
     public List<AutoPart> searchByVin(String vin) {
         return getAllParts().stream()
                 .filter((e) -> vin.toLowerCase().contains(e.getVinPart().toLowerCase()))
                 .toList();
     }
 
+    /**
+     * Получить последний заказ
+     * @return Последний заказ
+     */
     private Order getLastOrder() {
         List<Order> orders = getOrders();
         Order order = new Order();
@@ -108,6 +132,11 @@ public abstract class AbstractDataProvider {
         return order;
     }
 
+    /**
+     * Получить деталь
+     * @param id ID детали
+     * @return Деталь
+     */
     private Optional<AutoPart> getPart(long id) {
         AutoPart part = getBodyPart(id);
         if (part.getId() != 0) return Optional.of(part);
@@ -119,6 +148,12 @@ public abstract class AbstractDataProvider {
         return Optional.empty();
     }
 
+    /**
+     * Изменить заказ
+     * @param action Действие с деталью
+     * @param partId ID детали
+     * @return Обновлённый заказ
+     */
     public Optional<Order> modifyOrder(String action, long partId) {
         switch (action.toUpperCase()) {
             case Constants.ADD -> addPart(partId);
@@ -130,6 +165,11 @@ public abstract class AbstractDataProvider {
         return Optional.of(order);
     }
 
+    /**
+     * Добавить деталь
+     * @param partId ID детали
+     * @return Обновлённый заказ
+     */
     public Optional<Order> addPart(long partId) {
         Order order = getLastOrder();
         List<AutoPart> parts = new ArrayList<>(order.getParts());
@@ -144,6 +184,11 @@ public abstract class AbstractDataProvider {
         return Optional.of(order);
     }
 
+    /**
+     * Удалить деталь
+     * @param partId ID детали
+     * @return Обновлённый заказ
+     */
     public Optional<Order> removePart(long partId) {
         Order order = getLastOrder();
         List<AutoPart> parts = new ArrayList<>(order.getParts());
@@ -162,6 +207,11 @@ public abstract class AbstractDataProvider {
         return Optional.of(order);
     }
 
+    /**
+     * Подсчитать итоговую цену
+     * @param orderId ID заказа
+     * @return Цена
+     */
     public double calculateTotalPrice(long orderId) {
         List<AutoPart> parts = getOrder(orderId).getParts();
         double orderPrice = parts.stream().mapToDouble(AutoPart::getPrice).sum();
