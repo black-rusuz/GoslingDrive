@@ -37,6 +37,14 @@ public class Constants {
     public static final String JDBC = "JDBC";
     public static final String CSV = "CSV";
 
+    public static final String SEARCH_PARTS = "SEARCHPARTS";
+    public static final String SEARCH_BY_NAME = "SEARCHBYNAME";
+    public static final String SEARCH_BY_VIN = "SEARCHBYVIN";
+    public static final String MODIFY_ORDER = "MODIFYORDER";
+    public static final String ADD_PART = "ADDPART";
+    public static final String REMOVE_PART = "REMOVEPART";
+    public static final String CALCULATE_TOTAL_PRICE = "CALCULATETOTALPRICE";
+
     public static final String ADD = "ADD";
     public static final String REMOVE = "REMOVE";
 
