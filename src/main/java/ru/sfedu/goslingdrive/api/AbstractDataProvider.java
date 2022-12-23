@@ -171,6 +171,7 @@ public abstract class AbstractDataProvider {
         }
         Order order = getLastOrder();
         order.setPrice(calculateTotalPrice(order.getId()));
+        updateOrder(order);
         log.info(Constants.MODIFIED_ORDER + order);
         return Optional.of(order);
     }
