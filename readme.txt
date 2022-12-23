@@ -21,7 +21,7 @@ JDBC
 java -jar -Denv=./environment.properties -Dlog4j2.configurationFile=./log4j2.xml ./GoslingDrive.jar XML searchParts bumper A1BX4
 java -jar -Denv=./environment.properties -Dlog4j2.configurationFile=./log4j2.xml ./GoslingDrive.jar XML searchByName bumper
 java -jar -Denv=./environment.properties -Dlog4j2.configurationFile=./log4j2.xml ./GoslingDrive.jar CSV searchByVin A1BX4
-java -jar -Denv=./environment.properties -Dlog4j2.configurationFile=./log4j2.xml ./GoslingDrive.jar CSV modifyOrder add 51
+java -jar -Denv=./environment.properties -Dlog4j2.configurationFile=./log4j2.xml ./GoslingDrive.jar CSV modifyOrder add 21
 java -jar -Denv=./environment.properties -Dlog4j2.configurationFile=./log4j2.xml ./GoslingDrive.jar CSV addPart 21
 java -jar -Denv=./environment.properties -Dlog4j2.configurationFile=./log4j2.xml ./GoslingDrive.jar JDBC removePart 21
 java -jar -Denv=./environment.properties -Dlog4j2.configurationFile=./log4j2.xml ./GoslingDrive.jar JDBC calculateTotalPrice 52
