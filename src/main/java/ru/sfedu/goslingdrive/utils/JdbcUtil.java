@@ -58,16 +58,17 @@ public class JdbcUtil {
     }
 
     private static String mapper(Map.Entry<String, Object> entry) {
-        if (entry.getKey().equals(ID))
-            return getColumnName(entry.getKey()) + COLUMN_TYPE_LONG + COLUMN_PRIMARY_KEY;
+        String key = entry.getKey();
+        if (key.equals(ID))
+            return getColumnName(key) + COLUMN_TYPE_LONG + COLUMN_PRIMARY_KEY;
         else if (entry.getValue().getClass() == Integer.class)
-            return getColumnName(entry.getKey()) + COLUMN_TYPE_INT;
+            return getColumnName(key) + COLUMN_TYPE_INT;
         else if (entry.getValue().getClass() == Double.class)
-            return getColumnName(entry.getKey()) + COLUMN_TYPE_DOUBLE;
+            return getColumnName(key) + COLUMN_TYPE_DOUBLE;
         else if (entry.getValue().getClass() == Boolean.class)
-            return getColumnName(entry.getKey()) + COLUMN_TYPE_BOOLEAN;
+            return getColumnName(key) + COLUMN_TYPE_BOOLEAN;
         else
-            return getColumnName(entry.getKey()) + COLUMN_TYPE_STRING;
+            return getColumnName(key) + COLUMN_TYPE_STRING;
     }
 
     // COMMANDS
@@ -124,7 +125,7 @@ public class JdbcUtil {
     private static String toValues(Object value) {
         String valueString = value.toString();
         if (value instanceof LinkedHashMap valueMap) valueString = innerMapToString(valueMap);
-        if (value instanceof ArrayList valueMap) valueString = innerListToString(valueMap);
+        if (value instanceof ArrayList valueList) valueString = innerListToString(valueList);
         return String.format(SQL_VALUE_WRAPPER, valueString);
     }
 
@@ -132,7 +133,7 @@ public class JdbcUtil {
         Object value = entry.getValue();
         String valueString = value.toString();
         if (value instanceof LinkedHashMap valueMap) valueString = innerMapToString(valueMap);
-        if (value instanceof ArrayList valueMap) valueString = innerListToString(valueMap);
+        if (value instanceof ArrayList valueList) valueString = innerListToString(valueList);
         return String.format(SQL_KEY_VALUE_WRAPPER, getColumnName(entry.getKey()), valueString);
     }
 
