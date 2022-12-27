@@ -37,7 +37,7 @@ abstract public class FileDataProvider extends AbstractDataProvider {
 
     @Override
     protected <T> T getById(Class<T> type, long id) {
-        List<T> list = getAll(type).stream().filter(e -> ReflectUtil.getId(e) == id).toList();
+        List<T> list = read(type).stream().filter(e -> ReflectUtil.getId(e) == id).toList();
         return list.isEmpty() ? ReflectUtil.getEmptyObject(type) : list.get(0);
     }
 
@@ -48,7 +48,7 @@ abstract public class FileDataProvider extends AbstractDataProvider {
             ReflectUtil.setId(bean, System.currentTimeMillis());
         }
 
-        List<T> list = getAll(type);
+        List<T> list = read(type);
         list.add(bean);
         write(list, type, Constants.METHOD_NAME_APPEND);
 
@@ -62,7 +62,7 @@ abstract public class FileDataProvider extends AbstractDataProvider {
             return false;
         }
 
-        List<T> list = getAll(type);
+        List<T> list = read(type);
         list.removeIf(e -> ReflectUtil.getId(e) == id);
         return write(list, type, Constants.METHOD_NAME_DELETE);
     }
@@ -75,7 +75,7 @@ abstract public class FileDataProvider extends AbstractDataProvider {
             return false;
         }
 
-        List<T> list = getAll(type);
+        List<T> list = read(type);
         list.set(list.indexOf(getById(type, id)), bean);
         return write(list, type, Constants.METHOD_NAME_UPDATE);
     }
