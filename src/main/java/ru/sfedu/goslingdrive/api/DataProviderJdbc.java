@@ -78,7 +78,8 @@ public class DataProviderJdbc extends AbstractDataProvider {
         statement.close();
     }
 
-    private <T> boolean write(String methodName, T bean, long id) {
+    private <T> boolean write(String methodName, T bean) {
+        long id = ReflectUtil.getId(bean);
         String sql = switch (methodName) {
             case Constants.METHOD_NAME_APPEND -> JdbcUtil.insertIntoTableValues(bean);
             case Constants.METHOD_NAME_DELETE -> JdbcUtil.deleteFromTableById(bean, id);
@@ -116,7 +117,7 @@ public class DataProviderJdbc extends AbstractDataProvider {
         if (hasSavedId(type, id)) {
             ReflectUtil.setId(bean, System.currentTimeMillis());
         }
-        write(Constants.METHOD_NAME_APPEND, bean, id);
+        write(Constants.METHOD_NAME_APPEND, bean);
         return ReflectUtil.getId(bean);
     }
 
@@ -126,7 +127,7 @@ public class DataProviderJdbc extends AbstractDataProvider {
             log.warn(getNotFoundMessage(type, id));
             return false;
         }
-        return write(Constants.METHOD_NAME_DELETE, ReflectUtil.getEmptyObject(type), id);
+        return write(Constants.METHOD_NAME_DELETE, ReflectUtil.getEmptyObject(type));
     }
 
     @Override
@@ -136,6 +137,6 @@ public class DataProviderJdbc extends AbstractDataProvider {
             log.warn(getNotFoundMessage(type, id));
             return false;
         }
-        return write(Constants.METHOD_NAME_UPDATE, bean, id);
+        return write(Constants.METHOD_NAME_UPDATE, bean);
     }
 }
